@@ -5,11 +5,17 @@ import { dmSans } from "@/lib/fonts";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SplashScreen } from "@/components/layout/splash-screen";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 export const metadata: Metadata = {
   title: "Triple A del Norte | Acueducto, Alcantarillado y Aseo",
   description:
     "Garantizamos servicios de acueducto, alcantarillado y aseo de excelente calidad para Sincelejo y la región Caribe.",
+  icons: {
+    icon: "/images/brand/logo-icon.png",
+    shortcut: "/images/brand/logo-icon.png",
+    apple: "/images/brand/logo-icon.png",
+  },
 };
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -21,6 +27,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );

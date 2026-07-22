@@ -7,6 +7,11 @@ import { SplashScreen } from "@/components/layout/splash-screen";
 export const metadata: Metadata = {
   title: "Panel de cartera | Triple A del Norte",
   description: "Panel administrativo interno de control de cartera.",
+  icons: {
+    icon: "/images/brand/logo-icon.png",
+    shortcut: "/images/brand/logo-icon.png",
+    apple: "/images/brand/logo-icon.png",
+  },
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
