@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, Menu, Phone, Mail, MapPin, X, CreditCard, MessageCircle } from "lucide-react";
+import { ChevronDown, Menu, Phone, Mail, MapPin, X, CreditCard, MessageCircle, Lock } from "lucide-react";
 import { navItems } from "@/lib/nav";
 import { municipios } from "@/lib/content";
 import { Button } from "@/components/ui/button";
@@ -163,6 +163,14 @@ export function Header() {
           </nav>
 
           <div className="hidden items-center gap-2 xl:flex">
+            <Link
+              href="/panel/login"
+              aria-label="Acceso empleados"
+              title="Acceso empleados"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-ink-300 transition-colors hover:bg-ink-50 hover:text-ink-500 focus-ring"
+            >
+              <Lock size={15} />
+            </Link>
             <Button href="/contacto" variant="ghost">
               <MessageCircle size={16} /> Contáctenos
             </Button>
@@ -247,6 +255,13 @@ export function Header() {
                 <Button href="/contacto" variant="secondary">
                   Contáctenos
                 </Button>
+                <Link
+                  href="/panel/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="mt-1 flex items-center justify-center gap-1.5 text-xs text-ink-300 transition-colors hover:text-ink-500"
+                >
+                  <Lock size={12} /> Acceso empleados
+                </Link>
               </div>
             </motion.div>
           </motion.div>
