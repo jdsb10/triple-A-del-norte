@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// EstadoCartera: AL_DIA | MOROSO | SUSPENDIDO
+/// EstadoFactura: PENDIENTE | PAGADA | VENCIDA
+/// Canal: WHATSAPP | EMAIL | SMS
+/// EstadoEnvio: ENVIADO | FALLIDO | PENDIENTE
+/// EstadoSync: EXITOSO | FALLIDO | EN_PROGRESO
+/// RolPanel: ADMIN | CARTERA | SOLO_LECTURA
+/// (Guardados como String -- ver las constantes en packages/db/index.ts -- por
+/// portabilidad; funcionan igual con enums nativos si se prefiere migrar luego.)
+
+model Deudor {
+  id             String         @id @default(cuid())
+  codigoExterno  String         @unique
+  nombre         String
+  identificacion String
+  telefono       String?
+  email          String?
+  direccion      String?
+  estadoCartera  String         @default("AL_DIA")
+  saldoActual    Decimal
+  facturas       Factura[]
+  recordatorios  Recordatorio[]
+  actualizadoEn  DateTime       @updatedAt
+  creadoEn       DateTime       @default(now())
+}
+
+model Factura {
+  id               String         @id @default(cuid())
+  codigoExterno    String         @unique
+  deudorId         String
+  deudor           Deudor         @relation(fields: [deudorId], references: [id])
+  periodo          String
+  valor            Decimal
+  fechaEmision     DateTime
+  fechaVencimiento DateTime
+  estado           String         @default("PENDIENTE")
+  fechaPago        DateTime?
+  recordatorios    Recordatorio[]
+}
+
+model ReglaRecordatorio {
+  id               String         @id @default(cuid())
+  nombre           String
+  diasOffset       Int
+  canal            String
+  plantillaMensaje String
+  activa           Boolean        @default(true)
+  recordatorios    Recordatorio[]
+  creadoEn         DateTime       @default(now())
+}
+
+model Recordatorio {
+  id                 String             @id @default(cuid())
+  deudorId           String
+  deudor             Deudor             @relation(fields: [deudorId], references: [id])
+  facturaId          String?
+  factura            Factura?           @relation(fields: [facturaId], references: [id])
+  reglaId            String?
+  regla              ReglaRecordatorio? @relation(fields: [reglaId], references: [id])
+  canal              String
+  mensajeEnviado     String
+  estadoEnvio        String
+  enviadoPor         String?
+  respuestaProveedor String?
+  creadoEn           DateTime           @default(now())
+}
+
+model SyncLog {
+  id                  String    @id @default(cuid())
+  iniciadoEn          DateTime  @default(now())
+  finalizadoEn        DateTime?
+  registrosProcesados Int?
+  estado              String
+  detalleError        String?
+}
+
+model UsuarioPanel {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  nombre       String
+  rol          String
+  passwordHash String
+  activo       Boolean  @default(true)
+  creadoEn     DateTime @default(now())
+}
+
+model AuditLog {
+  id              String   @id @default(cuid())
+  usuarioId       String
+  accion          String
+  entidadAfectada String?
+  detalle         String?
+  ip              String?
+  creadoEn        DateTime @default(now())
+}
