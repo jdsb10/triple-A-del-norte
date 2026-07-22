@@ -37,7 +37,7 @@ export function Hero() {
 
   return (
     <section className="container-bleed pt-6 md:pt-8">
-      <div className="relative h-[560px] overflow-hidden rounded-[2rem] shadow-card md:h-[620px]">
+      <div className="relative h-[calc(100dvh_-_var(--header-h,110px)_-_1.75rem)] min-h-[480px] overflow-hidden rounded-[2rem] shadow-card">
         <AnimatePresence mode="wait">
           <motion.div
             key={index}

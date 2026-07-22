@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, Phone, Mail, MapPin, X, CreditCard, MessageCircle, Lock } from "lucide-react";
 import { navItems } from "@/lib/nav";
@@ -12,6 +12,7 @@ import { Logo } from "@/components/ui/logo";
 
 export function Header() {
   const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -24,13 +25,25 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Publica la altura real del header (sin scroll) para que el Hero pueda
+  // llenar exactamente el resto del viewport en la carga inicial.
+  useEffect(() => {
+    const publishHeight = () => {
+      if (window.scrollY > 24 || !headerRef.current) return;
+      document.documentElement.style.setProperty("--header-h", `${headerRef.current.offsetHeight}px`);
+    };
+    publishHeight();
+    window.addEventListener("resize", publishHeight);
+    return () => window.removeEventListener("resize", publishHeight);
+  }, []);
+
   useEffect(() => {
     const id = setInterval(() => setMunicipioIndex((i) => (i + 1) % municipios.length), 3200);
     return () => clearInterval(id);
   }, []);
 
   return (
-    <header className="sticky top-0 z-50">
+    <header ref={headerRef} className="sticky top-0 z-50">
       {/* Barra de utilidad - se pliega al hacer scroll */}
       <AnimatePresence initial={false}>
         {!scrolled && (
