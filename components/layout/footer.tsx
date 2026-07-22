@@ -6,7 +6,7 @@ import { municipios } from "@/lib/content";
 
 export function Footer() {
   return (
-    <footer className="px-3 py-6 sm:px-4 lg:px-5">
+    <footer className="container-bleed py-6">
       <div className="grid gap-10 rounded-[2rem] bg-leaf-50 p-8 shadow-card md:grid-cols-2 md:p-12 lg:grid-cols-5 xl:grid-cols-5 2xl:gap-16 2xl:p-16">
         <div className="lg:col-span-2">
           <Logo height={34} />

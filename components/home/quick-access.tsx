@@ -34,7 +34,7 @@ const items = [
 
 export function QuickAccess() {
   return (
-    <section className="container-page py-6">
+    <section className="container-bleed py-6">
       <div className="rounded-[2rem] bg-brand-900 px-6 py-14 shadow-card sm:px-10 md:py-16">
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-wide text-leaf-300">Acceso rápido</p>

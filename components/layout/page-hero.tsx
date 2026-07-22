@@ -10,7 +10,7 @@ export function PageHero({
   text?: string;
 }) {
   return (
-    <section className="container-page pt-6 md:pt-8">
+    <section className="container-bleed pt-6 md:pt-8">
       <div className="rounded-[2rem] bg-gradient-to-br from-ink-900 via-brand-900 to-brand-700 px-6 py-16 text-white shadow-card sm:px-10 md:py-20">
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-wide text-brand-200">{eyebrow}</p>

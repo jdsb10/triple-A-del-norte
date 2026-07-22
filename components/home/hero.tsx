@@ -36,7 +36,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="container-page pt-6 md:pt-8">
+    <section className="container-bleed pt-6 md:pt-8">
       <div className="relative h-[560px] overflow-hidden rounded-[2rem] shadow-card md:h-[620px]">
         <AnimatePresence mode="wait">
           <motion.div

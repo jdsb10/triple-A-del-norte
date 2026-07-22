@@ -11,7 +11,7 @@ const stats = [
 
 export function StatsSection() {
   return (
-    <section className="container-page py-6">
+    <section className="container-bleed py-6">
       <div className="relative overflow-hidden rounded-[2rem] py-20 text-white shadow-card">
         <Image
           src="/images/brand/hero-trabajador.jpg"
