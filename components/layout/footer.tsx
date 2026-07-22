@@ -6,8 +6,8 @@ import { municipios } from "@/lib/content";
 
 export function Footer() {
   return (
-    <footer className="bg-leaf-50">
-      <div className="container-page grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-5">
+    <footer className="container-page py-6">
+      <div className="grid gap-10 rounded-[2rem] bg-leaf-50 p-8 shadow-card md:grid-cols-2 md:p-12 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <Logo height={34} />
           <p className="mt-4 text-sm text-ink-500">
@@ -82,20 +82,18 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-leaf-200/60 bg-leaf-100/50">
-        <div className="container-page flex flex-col gap-2 py-5 text-xs text-ink-500 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Triple A del Norte SAS ESP. Todos los derechos reservados.</p>
-          <div className="flex items-center gap-4">
-            <Link href="/institucional/transparencia" className="hover:text-leaf-700 transition-colors">
-              Transparencia
-            </Link>
-            <Link href="/institucional/quienes-somos" className="hover:text-leaf-700 transition-colors">
-              Institucional
-            </Link>
-            <Link href="/panel/login" className="flex items-center gap-1.5 hover:text-leaf-700 transition-colors">
-              <Lock size={12} /> Acceso empleados
-            </Link>
-          </div>
+      <div className="mt-6 flex flex-col gap-2 border-t border-ink-100 pt-5 text-xs text-ink-500 sm:flex-row sm:items-center sm:justify-between">
+        <p>© {new Date().getFullYear()} Triple A del Norte SAS ESP. Todos los derechos reservados.</p>
+        <div className="flex items-center gap-4">
+          <Link href="/institucional/transparencia" className="hover:text-leaf-700 transition-colors">
+            Transparencia
+          </Link>
+          <Link href="/institucional/quienes-somos" className="hover:text-leaf-700 transition-colors">
+            Institucional
+          </Link>
+          <Link href="/panel/login" className="flex items-center gap-1.5 hover:text-leaf-700 transition-colors">
+            <Lock size={12} /> Acceso empleados
+          </Link>
         </div>
       </div>
     </footer>
