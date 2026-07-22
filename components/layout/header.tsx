@@ -50,7 +50,7 @@ export function Header() {
         transition={{ duration: 0.25, ease: "easeOut" }}
         className="hidden overflow-hidden bg-ink-900 text-white/90 md:block"
       >
-        <div className="container-page flex h-9 items-center justify-between text-xs">
+        <div className="container-bleed flex h-9 items-center justify-between text-xs">
           <div className="flex items-center gap-5">
             <span className="flex items-center gap-1.5">
               <MapPin size={13} />
@@ -102,7 +102,7 @@ export function Header() {
         <motion.div
           animate={{ paddingTop: scrolled ? 8 : 12, paddingBottom: scrolled ? 8 : 12 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="container-page flex items-center justify-between gap-6"
+          className="container-bleed flex items-center justify-between gap-6"
         >
           <div className="flex min-w-0 items-center gap-8">
             <Link href="/" className="flex items-center shrink-0">
@@ -176,9 +176,9 @@ export function Header() {
               href="/panel/login"
               aria-label="Acceso empleados"
               title="Acceso empleados"
-              className="flex h-9 w-9 items-center justify-center rounded-full text-ink-300 transition-colors hover:bg-ink-50 hover:text-ink-500 focus-ring"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-ink-500 transition-colors hover:bg-ink-50 hover:text-ink-700 focus-ring"
             >
-              <Lock size={15} />
+              <Lock size={16} />
             </Link>
             <Button href="/contacto" variant="ghost">
               <MessageCircle size={16} /> Contáctenos
@@ -267,7 +267,7 @@ export function Header() {
                 <Link
                   href="/panel/login"
                   onClick={() => setMobileOpen(false)}
-                  className="mt-1 flex items-center justify-center gap-1.5 text-xs text-ink-300 transition-colors hover:text-ink-500"
+                  className="mt-1 flex items-center justify-center gap-1.5 text-xs text-ink-500 transition-colors hover:text-ink-700"
                 >
                   <Lock size={12} /> Acceso empleados
                 </Link>
