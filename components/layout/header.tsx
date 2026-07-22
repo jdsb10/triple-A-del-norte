@@ -44,54 +44,48 @@ export function Header() {
 
   return (
     <header ref={headerRef} className="sticky top-0 z-50">
-      {/* Barra de utilidad - se pliega al hacer scroll */}
-      <AnimatePresence initial={false}>
-        {!scrolled && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="hidden overflow-hidden bg-ink-900 text-white/90 md:block"
-          >
-            <div className="container-page flex h-9 items-center justify-between text-xs">
-              <div className="flex items-center gap-5">
-                <span className="flex items-center gap-1.5">
-                  <MapPin size={13} />
-                  <span className="relative inline-block h-4 w-32 overflow-hidden align-middle">
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={municipioIndex}
-                        initial={{ y: 12, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -12, opacity: 0 }}
-                        transition={{ duration: 0.35, ease: "easeOut" }}
-                        className="absolute inset-0"
-                      >
-                        {municipios[municipioIndex].nombre}, {municipios[municipioIndex].depto}
-                      </motion.span>
-                    </AnimatePresence>
-                  </span>
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Phone size={13} /> +(5) 2765045
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Mail size={13} /> calidad@tripleadelnorte.com
-                </span>
-              </div>
-              <div className="flex items-center gap-4 text-white/70">
-                <Link href="/institucional/rse" className="hover:text-white transition-colors">
-                  Responsabilidad social
-                </Link>
-                <Link href="/institucional/transparencia" className="hover:text-white transition-colors">
-                  Transparencia
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Barra de utilidad - se pliega al hacer scroll (siempre montada para evitar parpadeos al subir/bajar) */}
+      <motion.div
+        animate={{ height: scrolled ? 0 : 36, opacity: scrolled ? 0 : 1 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        className="hidden overflow-hidden bg-ink-900 text-white/90 md:block"
+      >
+        <div className="container-page flex h-9 items-center justify-between text-xs">
+          <div className="flex items-center gap-5">
+            <span className="flex items-center gap-1.5">
+              <MapPin size={13} />
+              <span className="relative inline-block h-4 w-32 overflow-hidden align-middle">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={municipioIndex}
+                    initial={{ y: 12, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -12, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="absolute inset-0"
+                  >
+                    {municipios[municipioIndex].nombre}, {municipios[municipioIndex].depto}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Phone size={13} /> +(5) 2765045
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Mail size={13} /> calidad@tripleadelnorte.com
+            </span>
+          </div>
+          <div className="flex items-center gap-4 text-white/70">
+            <Link href="/institucional/rse" className="hover:text-white transition-colors">
+              Responsabilidad social
+            </Link>
+            <Link href="/institucional/transparencia" className="hover:text-white transition-colors">
+              Transparencia
+            </Link>
+          </div>
+        </div>
+      </motion.div>
 
       {/* Barra principal: flotante y redondeada al hacer scroll */}
       <motion.div
@@ -110,70 +104,72 @@ export function Header() {
           transition={{ duration: 0.3, ease: "easeOut" }}
           className="container-page flex items-center justify-between gap-6"
         >
-          <Link href="/" className="flex items-center shrink-0">
-            <motion.div whileHover={{ scale: 1.03 }} transition={{ type: "spring", stiffness: 300, damping: 15 }}>
-              <Logo height={38} />
-            </motion.div>
-          </Link>
+          <div className="flex min-w-0 items-center gap-8">
+            <Link href="/" className="flex items-center shrink-0">
+              <motion.div whileHover={{ scale: 1.03 }} transition={{ type: "spring", stiffness: 300, damping: 15 }}>
+                <Logo height={38} />
+              </motion.div>
+            </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
-            {navItems.map((item) => (
-              <div
-                key={item.label}
-                className="relative"
-                onMouseEnter={() => item.children && setOpenMenu(item.label)}
-                onMouseLeave={() => item.children && setOpenMenu(null)}
-              >
-                {item.href ? (
-                  <Link
-                    href={item.href}
-                    className={`flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-colors hover:bg-leaf-50 hover:text-leaf-700 focus-ring ${
-                      pathname === item.href ? "text-leaf-600" : "text-ink-700"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
-                  <button className="flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-brand-50 hover:text-brand-700 focus-ring">
-                    {item.label}
-                    <ChevronDown
-                      size={14}
-                      className={`transition-transform duration-200 ${openMenu === item.label ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                )}
-
-                <AnimatePresence>
-                  {item.children && openMenu === item.label && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8, scale: 0.98 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                      transition={{ duration: 0.16, ease: "easeOut" }}
-                      className="absolute left-0 top-full pt-3"
+            <nav className="hidden lg:flex items-center gap-1">
+              {navItems.map((item) => (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() => item.children && setOpenMenu(item.label)}
+                  onMouseLeave={() => item.children && setOpenMenu(null)}
+                >
+                  {item.href ? (
+                    <Link
+                      href={item.href}
+                      className={`flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-colors hover:bg-leaf-50 hover:text-leaf-700 focus-ring ${
+                        pathname === item.href ? "text-leaf-600" : "text-ink-700"
+                      }`}
                     >
-                      <div className="w-80 rounded-2xl border border-brand-100 bg-white p-2 shadow-card">
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            className="group block rounded-xl px-4 py-3 transition-colors hover:bg-brand-50"
-                          >
-                            <p className="text-sm font-semibold text-ink-900 group-hover:text-brand-700">
-                              {child.label}
-                            </p>
-                            {child.description && (
-                              <p className="mt-0.5 text-xs text-ink-500">{child.description}</p>
-                            )}
-                          </Link>
-                        ))}
-                      </div>
-                    </motion.div>
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <button className="flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-brand-50 hover:text-brand-700 focus-ring">
+                      {item.label}
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform duration-200 ${openMenu === item.label ? "rotate-180" : ""}`}
+                      />
+                    </button>
                   )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </nav>
+
+                  <AnimatePresence>
+                    {item.children && openMenu === item.label && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                        transition={{ duration: 0.16, ease: "easeOut" }}
+                        className="absolute left-0 top-full pt-3"
+                      >
+                        <div className="w-80 rounded-2xl border border-brand-100 bg-white p-2 shadow-card">
+                          {item.children.map((child) => (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className="group block rounded-xl px-4 py-3 transition-colors hover:bg-brand-50"
+                            >
+                              <p className="text-sm font-semibold text-ink-900 group-hover:text-brand-700">
+                                {child.label}
+                              </p>
+                              {child.description && (
+                                <p className="mt-0.5 text-xs text-ink-500">{child.description}</p>
+                              )}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </nav>
+          </div>
 
           <div className="hidden items-center gap-2 xl:flex">
             <Link
