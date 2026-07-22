@@ -93,7 +93,7 @@ export function Header() {
         className="border border-transparent bg-white/95 backdrop-blur-md"
       >
         <motion.div
-          animate={{ paddingTop: scrolled ? 8 : 16, paddingBottom: scrolled ? 8 : 16 }}
+          animate={{ paddingTop: scrolled ? 8 : 12, paddingBottom: scrolled ? 8 : 12 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           className="container-page flex items-center justify-between gap-6"
         >
