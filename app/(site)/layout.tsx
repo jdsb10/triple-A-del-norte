@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   description:
     "Garantizamos servicios de acueducto, alcantarillado y aseo de excelente calidad para Sincelejo y la región Caribe.",
   icons: {
-    icon: "/images/brand/logo-icon.png",
-    shortcut: "/images/brand/logo-icon.png",
-    apple: "/images/brand/logo-icon.png",
+    icon: "/images/brand/favicon.png",
+    shortcut: "/images/brand/favicon.png",
+    apple: "/images/brand/favicon.png",
   },
 };
 

@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   title: "Panel de cartera | Triple A del Norte",
   description: "Panel administrativo interno de control de cartera.",
   icons: {
-    icon: "/images/brand/logo-icon.png",
-    shortcut: "/images/brand/logo-icon.png",
-    apple: "/images/brand/logo-icon.png",
+    icon: "/images/brand/favicon.png",
+    shortcut: "/images/brand/favicon.png",
+    apple: "/images/brand/favicon.png",
   },
 };
 
